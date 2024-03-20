@@ -7,7 +7,8 @@ Register
 Add, Edit and Delete Recipe
 Search using Recipe Name, Creator Name and Ingredient
 Recipes are user specific
-Comments and Rating are also user specific
+Comments and Rating are also user specific.
+
 
 Note: Due to the complexity of setting up SQL Server containers in Docker, I opted not to use Docker. I also included the failed Docker files and Docker Compose. If you are unable to set up the app locally, I have also included screenshots.
 
