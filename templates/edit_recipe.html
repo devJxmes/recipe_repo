@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Home</title>
+{% endblock %}
+        
+{% block body %}
+
+    <a href="/home">
+        <button>Back</button><br>
+    </a>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h4>{{message}}</h4>
+            {% endfor %}
+        {% endif %}
+    {% endwith%}
+            <strong>_________________________________</strong> <br>
+                
+                <h2>Recipe Name:  {{ recipe.recipe_name }} </h2>
+                <h3>Ingredients: {{ recipe.ingredients }}</h3>
+                <p>Steps: {{ recipe.steps }}</p>
+                <p>Prep time: {{ recipe.prep_time }}</p>
+                <form action="{{ url_for('edit', recipe_id=recipe.recipe_id) }}" method="POST">
+                    <input type="hidden" name="_method" value="PUT">
+                    <label for="name"><b>Recipe Name:</b></label>
+                    <input type="text" placeholder="Enter name" name="name" value="{{ recipe.recipe_name }}" required>
+                    <br>
+                    <label for="ingredients"><b>Ingredients </b></label>
+                    <input type="text" placeholder="Enter ingredients" name="ingredients" value="{{ recipe.ingredients }}" required>
+                    <br>
+                    <label for="steps"><b>Steps: </b></label>
+                    <input type="text" placeholder="Enter steps" name="steps" value="{{ recipe.steps }}" required>
+                    <br>
+                    <label for="prep_time"><b>Prep Time:</b></label>
+                    <input type="text" placeholder="Enter Prep time" name="prep_time" value="{{ recipe.prep_time }}"required><br>
+                    <button type="submit">Update Recipe</button>
+                </form>   
+                
+                
+            <strong>_________________________________</strong> <br>
+   
+{% endblock %}

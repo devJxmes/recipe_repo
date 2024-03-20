@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Home</title>
+{% endblock %}
+        
+{% block body %}
+    <h1>All Recipes</h1>
+    
+    <br>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h4>{{message}}</h4>
+            {% endfor %}
+        {% endif %}
+    {% endwith%}
+
+        {% for recipe in recipes %}
+                <strong>_________________________________</strong> <br>
+                <h3>Recipe Name:  {{ recipe.recipe_name }} </h3>
+                <strong>Created by: {{ recipe.name }}</strong> <br>
+                <h4>Ingredients: {{ recipe.ingredients }}</h4>
+                <p>Steps: {{ recipe.steps }}</p>
+                <p>Prep time: {{ recipe.prep_time }}</p>
+                <div style="display: inline-block;">
+                    <form action="{{ url_for('view', recipe_id=recipe.recipe_id) }}" method="get">
+                        <button type="submit">View Recipe</button>
+                    </form>
+                </div>
+                {% if session['user_id'] == recipe.user_id %}
+                    <div style="display: inline-block;">
+                        <form action="{{ url_for('edit', recipe_id=recipe.recipe_id) }}" method="get">
+                            <button type="submit">Edit Recipe</button>
+                        </form>
+                    </div>
+                {% endif %}
+                {% if session['user_id'] == recipe.user_id %}
+                    <div style="display: inline-block;">
+                        <form action="{{ url_for('delete', recipe_id=recipe.recipe_id) }}" method="post">
+                            <button type="submit">Delete Recipe</button>
+                        </form>
+                    </div>
+                {% endif %}
+                <br>
+        {% endfor %}
+                <strong>_________________________________</strong> <br>
+    
+{% endblock %}

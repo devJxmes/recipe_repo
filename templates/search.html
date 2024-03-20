@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Search</title>
+{% endblock %}
+        
+{% block body %}
+    <h1>Search Results</h1>
+    
+    <br>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h4>{{message}}</h4>
+            {% endfor %}
+        {% endif %}
+    {% endwith%}
+        {% if search_results %}
+                {% for search in search_results %}
+                <strong>_________________________________</strong> <br>
+                    <h3>Recipe Name:  {{ search.recipe_name }} </h3>
+                    <strong>Created by: {{ search.name }}</strong> <br>
+                    <h4>Ingredients: {{ search.ingredients }}</h4>
+                    <p>Steps: {{ search.steps }}</p>
+                    <p>Prep time: {{ search.prep_time }}</p>
+                    <div style="display: inline-block;">
+                        <form action="{{ url_for('view', recipe_id=search.recipe_id) }}" method="get">
+                            <button type="submit">View Recipe</button>
+                        </form>
+                    </div>
+                    {% if session['user_id'] == search.user_id %}
+                        <div style="display: inline-block;">
+                            <form action="{{ url_for('edit', recipe_id=search.recipe_id) }}" method="get">
+                                <button type="submit">Edit Recipe</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                    {% if session['user_id'] == search.user_id %}
+                        <div style="display: inline-block;">
+                            <form action="{{ url_for('delete', recipe_id=search.recipe_id) }}" method="post">
+                                <button type="submit">Delete Recipe</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                    <br>
+                {% endfor %}
+                <strong>_________________________________</strong> <br>
+        {% endif %}
+        
+    
+{% endblock %}

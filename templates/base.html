@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}{% endblock %}
+        
+        {% if 'user_id' in session: %}
+            <a href="/home">
+                <button>Home</button>
+            </a>
+            <a href="/recipes">
+                <button>Add New Recipe</button>
+            </a>
+            <a href="/logout">
+                <button>Logout</button>
+            </a>
+        <br>
+        
+        <form action="{{ url_for('search') }}" method="post">
+            <br>
+            <label for="search"><b>Search:</b></label>
+            <input type="text" placeholder="Recipe name/Ingredient/Creator Name" name="search" style="width:400px;">
+            <button type="submit">Search</button>
+        </form>
+        {% endif %}
+        <br>
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

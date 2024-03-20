@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Home</title>
+{% endblock %}
+        
+{% block body %}
+
+    <a href="/home">
+        <button>Back</button><br>
+    </a>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h4>{{message}}</h4>
+            {% endfor %}
+        {% endif %}
+    {% endwith%}
+            <strong>_________________________________</strong> <br>
+                
+                <h2>Recipe Name:  {{ recipe.recipe_name }} </h2>
+                <strong>Created by: {{ recipe.name }}</strong> <br>
+                <h3>Ingredients: {{ recipe.ingredients }}</h3>
+                <p>Steps: {{ recipe.steps }}</p>
+                <p>Prep time: {{ recipe.prep_time }}</p>
+                
+            <strong>_________________________________</strong> <br>
+            
+                <h3>Total Rating: {{ average_rating }} </h3>
+                <h3>Ratings: </h3>
+                {% for rating in ratings %}
+                    <h4>{{ rating.name }} : {{ rating.value }} </h4>
+                {% endfor %}
+                <form action="{{ url_for('rating', recipe_id=recipe.recipe_id) }}" method="post">
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1 |</label>
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2 |</label>
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3 |</label>
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4 |</label>
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label>
+                    <button type="submit">Rate</button>
+                </form>
+            <strong>_________________________________</strong> <br>
+            
+                <h3>Comments</h3>
+                {% for comment in comments %}
+                    <h4>{{ comment.name }} : {{ comment.comment }} </h4>
+                {% endfor %}
+                <form action="{{ url_for('comment', recipe_id=recipe.recipe_id) }}" method="post">
+                    <label for="comment"><b>Comment</b></label>
+                    <input type="hidden" name="recipe_id" value="{{ recipe.recipe_id }}">
+                    <input type="text" placeholder="Enter comment" name="comment" required>
+                    <button type="submit">Comment</button>
+                </form>
+            <strong>_________________________________</strong> <br>
+   
+{% endblock %}

@@ -1,0 +1,29 @@
+FROM python:3.10.13-alpine3.19
+
+ENV FLASK_APP=app.py \
+    FLASK_RUN_HOST=0.0.0.0 \
+    FLASK_ENV=development
+
+RUN apk update && \
+    apk add --no-cache \
+    unixodbc \
+    unixodbc-dev \
+    curl \
+    gcc \
+    musl-dev \
+    libffi-dev \
+    openssl-dev \
+    g++
+
+WORKDIR /app
+
+COPY . /app
+
+RUN pip install -r requirements.txt
+
+COPY odbcinst.ini /etc/odbcinst.ini
+COPY odbc.ini /etc/odbc.ini
+
+EXPOSE 5000
+
+CMD ["flask", "run"]

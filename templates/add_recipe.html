@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Add Recipe</title>
+{% endblock %}
+        
+{% block body %}
+    
+    <a href="/home">
+        <button>Back</button>
+    </a>
+    <form action="/recipes/add" method="post">
+        
+        <h2>Add Recipe</h2>
+
+        <div class="container">
+        <label for="uname"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name" name="name" required>
+    
+        <label for="ingredients"><b>Ingredients</b></label>
+        <input type="text" placeholder="Enter Ingredients" name="ingredients" required>
+
+        <label for="steps"><b>Steps</b></label>
+        <input type="text" placeholder="Enter Steps" name="steps" required>
+
+        <label for="prep_time"><b>Prep Time</b></label>
+        <input type="text" placeholder="Enter Prep Time" name="prep_time" required>
+    
+
+        <button type="submit">Add Recipe</button>
+
+        </div>
+    
+        </div>
+    </form>
+{% endblock %}

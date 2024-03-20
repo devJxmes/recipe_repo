@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  flask-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.flask
+    ports:
+      - "5000:5000"
+    depends_on:
+      - sql-server
+    environment:
+      SQL_SERVER_HOST: sqlserver
+      SQL_SERVER_PORT: 1433
+      SQL_SERVER_DB: recipe_db
+      SQL_SERVER_USER: sa
+      SQL_SERVER_PASSWORD: PyTH0n_R3C1P3_
+      SQLALCHEMY_DATABASE_URI: "mssql+pyodbc://sa:PyTH0n_R3C1P3_@sqlserver:1433/recipe_db?driver=ODBC+Driver+17+for+SQL+Server"
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      MSSQL_PID: "Express"
+      SA_USERNAME: "sa"
+      SA_PASSWORD: "PyTH0n_R3C1P3_"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./recipe_db.bak:/var/opt/mssql/data/recipe_db.bak
+    command: ["bash", "-c", "sleep 30 && /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P PyTH0n_R3C1P3_ -Q 'RESTORE DATABASE recipe_db FROM DISK=\"/var/opt/mssql/data/recipe_db.bak\" WITH MOVE \"RECIPE\" TO \"/var/opt/mssql/data/recipe_db.mdf\", MOVE \"RECIPE_log\" TO \"/var/opt/mssql/data/recipe_db_log.ldf\"'"]
