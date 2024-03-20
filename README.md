@@ -1,6 +1,7 @@
 Created by: devillaJA
 
-A Small Recipe App.
+A Small Recipe App
+
 Functions:
 Login
 Register
