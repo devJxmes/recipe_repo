@@ -1,6 +1,7 @@
 Created by: devillaJA
 
 A Small Recipe App
+- Built using Flask and SQL Server
 
 Functions:
 Login
