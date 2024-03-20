@@ -4,12 +4,12 @@ A Small Recipe App
 - Built using Flask and SQL Server
 
 Functions:
-Login
-Register
-Add, Edit and Delete Recipe
-Search using Recipe Name, Creator Name and Ingredient
-Recipes are user specific
-Comments and Rating are also user specific.
+1. Login
+2. Register
+3. Add, Edit and Delete Recipe
+4. Search using Recipe Name, Creator Name and Ingredient
+5. Recipes are user specific
+6. Comments and Rating are also user specific.
 
 
 Note: Due to the complexity of setting up SQL Server containers in Docker, I opted not to use Docker. I also included the failed Docker files and Docker Compose. If you are unable to set up the app locally, I have also included screenshots.
